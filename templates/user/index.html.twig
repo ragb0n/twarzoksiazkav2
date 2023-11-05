@@ -1,0 +1,20 @@
+{% extends "./base.html.twig" %}
+
+{% block body %}
+
+    <div class="text-white drop-shadow-md text-center italic font-extrabold text-3xl"> twarzoksiążka V2 ma już {{ users|length }} aktywnych użytkowników! </div>
+    </br>
+    <div class="flex flex-wrap items-stretch justify-between w-full">
+    {% for user in users %}
+        <div class="pb-10 bg-white rounded-md grow w-1/10 mr-10 mb-10 hover:drop-shadow-2xl transition duration-150">
+            <a href="/user/{{ user.id }}">
+            <div class="w-full pt-5 pb-5">
+                <img class="w-20 h-20 rounded-full m-auto" src="{{ asset('build/images/piesek.cb296c0f.jpg') }}">
+            </div>
+            <div class="text-center font-bold">{{ user.firstName }}</div>
+            <div class="text-center font-bold">{{ user.lastName }}</div>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

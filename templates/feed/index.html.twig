@@ -1,0 +1,66 @@
+{% extends './base.html.twig' %}
+
+{% block body %}
+<div class="w-4/5">
+    {% if posts is empty %}
+    <div class="bg-white rounded-md mb-4" >
+        Brak postów!
+    </div>
+    {% else %}
+        {% for post in posts %}
+        <div class="bg-white rounded-md mb-4 drop-shadow-md" >
+            <div class="flex items-center w-11/12 m-auto pt-4">
+                <div class="h-12 w-12 mr-4">
+                    <img class="rounded-full w-full h-full" src="{{ asset('build/images/piesek.cb296c0f.jpg') }}" alt="Profile photo">
+                </div>
+                <div>
+                    <div class="rounded-md">
+                        <span class="text-lg font-extrabold">{{ post.userId.firstName }}</span>
+                        <span class="text-lg font-extrabold">{{ post.userId.lastName }}</span>
+                    </div>
+                    <span>{{ post.createdAt|date("d.m.Y")}}</span>
+                </div>
+            </div>
+            <div class="rounded-md w-11/12 m-auto mt-4 pb-4">
+                {{ post.text}}
+            </div>
+            <div class="flex w-11/12 m-auto pb-4">
+                <div class="p-1 mr-2">
+                    Komentarze: 0
+                </div>
+                <div class="rounded-md bg-gray-200 p-1 mr-2 hover:drop-shadow-xl transition duration-150">
+                    <a href="">
+                        &#x1F44D;
+                        0
+                    </a>
+                </div>
+                <div class="rounded-md bg-gray-200 p-1 mr-2 hover:drop-shadow-2xl transition duration-150">
+                    <a href="">
+                        &#x1F44E;
+                        0
+                    </a>
+                </div>
+                <div class="rounded-md bg-gray-200 p-1 mr-2 hover:drop-shadow-2xl transition duration-150">
+                    <a href="">
+                        &#x1F602;
+                        0
+                    </a>
+                </div>
+                <div class="rounded-md bg-gray-200 p-1 mr-2 hover:drop-shadow-2xl transition duration-150">
+                    <a href="">
+                        &#x1F9E1;
+                        0
+                    </a>
+                </div>
+                <div class="rounded-md bg-gray-200 p-1 mr-2 hover:drop-shadow-2xl transition duration-150">
+                    <a href="">
+                        &#x1F61E;
+                        0
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+{% endblock %}

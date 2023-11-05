@@ -1,0 +1,13 @@
+{% extends "./base.html.twig" %}
+
+{% block body %}
+
+        <div>Imię: {{ user.firstName }}</div>
+        <div>Drugie imię: {{ user.secondName ?? '-'}}</div>
+        <div>Nazwisko: {{ user.lastName }}</div>
+        <div>Data dołączenia: {{ user.joinDate|date('d-m-Y')}} </div>
+        <div>Opis: {{ user.bio }} </div>
+        
+        </br>
+
+{% endblock %}
