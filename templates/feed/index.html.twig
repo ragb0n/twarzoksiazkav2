@@ -2,6 +2,30 @@
 
 {% block body %}
 <div class="w-4/5">
+    <div class="bg-white rounded-md mb-4 drop-shadow-md" >
+        <div class="flex items-center w-11/12 m-auto pt-4">
+            <div class="h-12 w-12 mr-4">
+                <img class="rounded-full w-full h-full" src="{{ asset('build/images/piesek.cb296c0f.jpg') }}" alt="Profile photo">
+            </div>
+            <div>
+                <div class="rounded-md">
+                    <span class="text-lg font-extrabold">Patryk</span> {# podmienić na dane dla zalogowanego usera #}
+                    <span class="text-lg font-extrabold">Marcinków</span> {# podmienić na dane dla zalogowanego usera #}
+                </div>
+                <span>{{ "now"|date("d.m.Y") }}</span>
+            </div>
+        </div>
+        <div class="rounded-md w-11/12 m-auto mt-4 pb-4">
+            {{ form_start(form) }}
+        </div>
+         <div class="w-11/12 m-auto">
+            {{ form_widget(form) }}
+            <button type="submit" class="px-4 py-2 mb-4 bg-blue-700 text-white font-extrabold hover:bg-blue-400 focus:outline-none">
+                Publikuj
+            </button>
+            {{ form_end(form) }}
+        </div>
+    </div>
     {% if posts is empty %}
     <div class="bg-white rounded-md mb-4" >
         Brak postów!

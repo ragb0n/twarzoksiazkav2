@@ -38,6 +38,8 @@ class UserPost
     {
         $this->postComments = new ArrayCollection();
         $this->postReactions = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

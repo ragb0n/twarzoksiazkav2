@@ -16,6 +16,9 @@ class UserSearchType extends AbstractType
             ->add('searchKeyword', TextType::class, [
                 'label' => ' ',
                 'required' => true,
+                'attr' => [
+                    'class' => 'py-2 px-4 border border-gray-300 rounded-t focus:outline-none focus:border-blue-500 flex-1 w-full'
+                ]
             ]);
     }
 
