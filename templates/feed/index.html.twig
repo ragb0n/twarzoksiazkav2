@@ -9,8 +9,8 @@
             </div>
             <div>
                 <div class="rounded-md">
-                    <span class="text-lg font-extrabold">Patryk</span> {# podmienić na dane dla zalogowanego usera #}
-                    <span class="text-lg font-extrabold">Marcinków</span> {# podmienić na dane dla zalogowanego usera #}
+                    <span class="text-lg font-extrabold">{{ app.user.firstName }}</span> {# podmienić na dane dla zalogowanego usera #}
+                    <span class="text-lg font-extrabold">{{ app.user.lastName }}</span> {# podmienić na dane dla zalogowanego usera #}
                 </div>
                 <span>{{ "now"|date("d.m.Y") }}</span>
             </div>

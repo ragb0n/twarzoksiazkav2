@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class FeedController extends AbstractController
+class UserPostController extends AbstractController
 {
     private $userPostRepository;
     private $friendshipRepository;
@@ -28,19 +28,22 @@ class FeedController extends AbstractController
     #[Route('/feed', name: 'feed')]
     public function index(Request $request): Response
     {
-        $friendsIds = $this->friendshipRepository->findAllUserFriends(7); //jako parametr ma być ID zalogowanego obecnie użytkownika, dopóki nie zaimplementowano logowania - na sztywno ID = 7
+        $user = $this->getUser();
+        $userId = $user->getId();
+
+        $friendsIds = $this->friendshipRepository->findAllUserFriends($userId);
         $posts = $this->userPostRepository->getFeedPosts($friendsIds);
 
-        $post = new UserPost();
-        $form = $this->createForm(PostFormType::class, $post);
+        $post = new UserPost(); //utworzenie nowego posta
+        $form = $this->createForm(PostFormType::class, $post); //tworzenie formularza który dostarczy dane dla nowego posta
                 
-        $form->handleRequest($request);
+        $form->handleRequest($request); //obsługa objektu Request, który zawiera m.in. formularz
 
         if ($form->isSubmitted() && $form->isValid()) {
             //TODO: dodanie klucza obcego userId użytkownika, któy jest zalogowany
             $newPost = $form->getData();
-            $this->em->persist($newPost);
-            $this->em->flush();
+            $this->em->persist($newPost); //deklarowanie Doctrine, że "potencjalnie" możliwe jest, że zostanie dokonany nowy wpis do bazy
+            $this->em->flush(); //wykonaj zapytanie z dodaniem wpisu do bazy (INSERT)
             // Redirect to prevent form resubmission on page refresh
             return $this->redirectToRoute('feed');
         }

@@ -1,0 +1,31 @@
+{% extends './base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="flex items-stretch justify-between w-full">
+        <div class="w-1/2 flex flex-col justify-center">
+            <div class="text-white drop-shadow-md text-left italic font-extrabold text-3xl max-w-full">
+                twarzoksiążka V2
+            </div>
+            <div class=" italic text-xl">
+                Już dziś dołącz do stale rosnącej sieci społecznościowej, jaką jest twarzoksiążka V2! W pełni bezpieczna,
+                szanująca Twoją prywatność alternatywa dla innych, popularnych sociali dostępnych w sieci!
+                Wystarczy wypełnić formularz rejestracji, aby już po chwili móc szukać swoich znajomych oraz zawierać zupełnie nowe przyjaźnie!
+            </div>
+        </div>
+        <div class="w-1/2">
+            <div class="text-left w-full max-w-full">
+                <div class="text-white drop-shadow-md pb-4 text-left italic font-extrabold text-3xl max-w-full">
+                    Rejestracja
+                </div>
+                {{ form_errors(registrationForm) }}
+
+                {{ form_start(registrationForm) }}
+                {{ form_widget(registrationForm) }}
+                    <button type="submit" class="btn px-4 py-2 my-4 w-2/12 m-auto bg-blue-700 text-white font-extrabold hover:bg-blue-400 focus:outline-none">Rejestruj!</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

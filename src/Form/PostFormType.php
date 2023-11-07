@@ -14,7 +14,7 @@ class PostFormType extends AbstractType
     {
         $builder
             ->add('text', TextareaType::class, [
-                'label' => ' ',
+                'label' => false,
                 'required' => true,
                 'attr' => [
                     'class' => 'w-full h-20 m-auto resize-none',

@@ -6,6 +6,7 @@ use App\Repository\UserPostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserPostRepository::class)]
 class UserPost
@@ -20,6 +21,7 @@ class UserPost
     private ?User $userId = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank] //walidacja dla sprawdzenia, czy pole nie jest puste
     private ?string $text = null;
 
     #[ORM\Column]

@@ -3,13 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,8 +29,11 @@ class User
     #[ORM\Column(length: 100)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
+
+    #[ORM\Column]
+    private array $roles = [];
 
     #[ORM\Column(length: 15, nullable: true)]
     private ?string $mobile = null;
@@ -57,6 +64,11 @@ class User
 
     #[ORM\OneToMany(mappedBy: 'userId', targetEntity: PostReaction::class)]
     private Collection $postReactions;
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     public function __construct()
     {
@@ -66,8 +78,9 @@ class User
         $this->messages = new ArrayCollection();
         $this->postComments = new ArrayCollection();
         $this->postReactions = new ArrayCollection();
+        $this->joinDate = new \DateTime();
     }
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +134,35 @@ class User
         return $this;
     }
 
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getMobile(): ?string
     {
         return $this->mobile;
@@ -165,6 +207,21 @@ class User
     public function setBio(?string $bio): static
     {
         $this->bio = $bio;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
 
         return $this;
     }
@@ -347,5 +404,14 @@ class User
         }
 
         return $this;
+    }
+    
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
