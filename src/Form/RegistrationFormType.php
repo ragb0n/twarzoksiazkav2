@@ -76,6 +76,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('bio', TextareaType::class, [
                 'label' => 'Opis (opcjonalne)',
+                'required' => false,
                 'label_attr' => [
                     'class' => 'block font-bold text-sm text-gray-800 py-2', // Apply Tailwind CSS classes here
                 ],

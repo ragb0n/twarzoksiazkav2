@@ -2,19 +2,36 @@
 
 {% block body %}
 
-    <div class="text-white drop-shadow-md text-center italic font-extrabold text-3xl"> twarzoksiążka V2 ma już {{ users|length }} aktywnych użytkowników! </div>
+    <div class="text-white drop-shadow-md text-center italic font-extrabold text-3xl"> 
+        twarzoksiążka V2 ma już {{ users|length }} aktywnych użytkowników!
+    </div>
     </br>
-    <div class="flex flex-wrap items-stretch justify-between w-full">
-    {% for user in users %}
-        <div class="pb-10 bg-white rounded-md grow w-48 mx-4 mb-10 hover:drop-shadow-2xl transition duration-150">
-            <a href="/user/{{ user.id }}">
-            <div class="w-full pt-5 pb-5">
-                <img class="w-20 h-20 rounded-full m-auto" src="{{ asset('build/images/piesek.cb296c0f.jpg') }}">
+    <div class="flex w-full my-10">
+        <div class="w-1/2">
+            <div class="text-white drop-shadow-md text-center italic font-extrabold text-3xl"> 
+                Masz już u nas konto? Zaloguj się!
             </div>
-            <div class="text-center font-bold">{{ user.firstName }}</div>
-            <div class="text-center font-bold">{{ user.lastName }}</div>
+            <div class="text-center text-xl"> 
+                Witaj z powrotem!
+            </div>
+            <a href="{{ path('app_login') }}">
+                <button class="btn block px-4 py-2 my-4 w-4/5 m-auto bg-blue-700 text-white font-extrabold hover:bg-blue-400 focus:outline-none">   
+                    Logowanie
+                </button>
             </a>
         </div>
-    {% endfor %}
+        <div class="w-1/2">
+            <div class="text-white drop-shadow-md text-center italic font-extrabold text-3xl"> 
+                Jesteś tu nowy? Załóż konto!
+            </div>
+            <div class="text-center text-xl"> 
+                To nic nie kosztuje!
+            </div>
+            <a href="{{ path('app_register') }}">
+                <button class="btn block px-4 py-2 my-4 w-4/5 m-auto bg-blue-700 text-white font-extrabold hover:bg-blue-400 focus:outline-none">   
+                    Rejestracja
+                </button>
+            </a>        
+        </div>
     </div>
 {% endblock %}

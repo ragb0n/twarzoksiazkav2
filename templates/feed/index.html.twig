@@ -1,7 +1,7 @@
 {% extends './base.html.twig' %}
 
 {% block body %}
-<div class="w-4/5">
+<div class="">
     <div class="bg-white rounded-md mb-4 drop-shadow-md" >
         <div class="flex items-center w-11/12 m-auto pt-4">
             <div class="h-12 w-12 mr-4">
@@ -27,8 +27,8 @@
         </div>
     </div>
     {% if posts is empty %}
-    <div class="bg-white rounded-md mb-4" >
-        Brak postów!
+    <div class="bg-white rounded-md mb-4 pl-10 py-10 font-semibold" >
+        Brak postów! &#x1F61E
     </div>
     {% else %}
         {% for post in posts %}

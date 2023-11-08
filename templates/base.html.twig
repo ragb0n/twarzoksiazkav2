@@ -14,7 +14,7 @@
     </head>
 
      <body class="bg-gray-200 h-screen antialiased leading-none font-sans">
-            {% block header %}
+             {% block header %}
                 <header>
                     <nav class="bg-blue-700 flex items-center justify-between flex-wrap p-6 fixed w-full z-10 top-0">
                         <div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -24,49 +24,115 @@
                                 </span>
                             </a>
                         </div>
-
-                        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto">
+                        {% if app.user %}
+                            <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto">
                             <ul class="pt-6 lg:pt-0 list-reset lg:flex justify-end flex-1 items-center">
                                 <li class="mr-3">
                                     <a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/feed">
-                                        Strona Główna
+                                        &#x1F4D6 Feed
                                     </a>
                                 </li>
 
                                 <li class="mr-3">
                                     <a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/users/search">
-                                        Szukaj osób
+                                        &#x1F464 Znajomi
                                     </a>
                                 </li>
 
                                 <li class="mr-3">
                                     <a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/user">
-                                        Profil
+                                        &#x1F465 Grupy
                                     </a>
                                 </li>
 
                                 <li class="mr-3">
                                     <a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/friends">
-                                        Znajomi
+                                        &#9993 Wiadomości
                                     </a>
                                 </li>        
                                 <li class="mr-3">
                                     <a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/messages">
-                                        Wiadomości
+                                        &#x1F4E2 Powiadomienia
+                                    </a>
+                                </li>    
+                                <li class="mr-3">
+                                    <a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/messages">
+                                        &#9881 Ustawienia
                                     </a>
                                 </li>    
                                  <li class="mr-3">
                                     <a class="inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/{{ app.user ? 'logout' : 'login'}}">
-                                        {{ app.user ? 'Wyloguj się' : 'Zaloguj się' }}
+                                        {{ app.user ? '&#128275 Wyloguj się' : 'Zaloguj się' }}
                                     </a>
                                 </li>                                
                             </ul>
                         </div>
+                        {% endif %}
                     </nav>
                 </header>
             {% endblock %}
-            <div class="pt-24 pb-4 w-4/6 m-auto">
-            {% block body %}{% endblock %}
+            <div class=" pt-24 pb-4 w-4/6 m-auto">
+                {% if app.user %}
+                    <div class="w-9/12">
+                {% endif %}
+                    {% block body %}{% endblock %}
+                {% if app.user %}
+                    </div>
+                {% endif %}   
+                </div>  
+                {% if app.user %}
+                    <div class="fixed top-20 right-72 w-2/12 bg-gray-200 py-4">
+                    <div class="bg-white rounded-md">
+                        <div class="drop-shadow-md">
+                            <div class="py-5 mx-4">
+                                <img class="rounded-full w-full h-full" src="{{ asset('build/images/piesek.cb296c0f.jpg') }}" alt="Profile photo">
+                            </div>
+                            <div class="text-center py-3 text-xl italic ">
+                                Witaj, <span class="font-semibold"> {{ app.user.firstName }}!</span>
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="flex flex-col bg-gray-200 drop-shadow-none">
+                                <a href="/feed">
+                                    <li class="pl-10 py-3 my-1 mt-2 bg-white transition transform hover:scale-105">
+                                        &#x1F4D6 Feed
+                                    </li>
+                                </a>
+                                <a href="/users/search">
+                                    <li class="pl-10 py-3 my-1 bg-white transition transform hover:scale-105">
+                                        &#x1F464 Znajomi
+                                    </li>
+                                </a>
+                                <a href="/groups">
+                                    <li class="pl-10 py-3 my-1 bg-white transition transform hover:scale-105">
+                                        &#x1F465 Grupy
+                                    </li>
+                                </a>
+                                <a href="/messages">
+                                    <li class="pl-10 py-3 my-1 bg-white transition transform hover:scale-105">
+                                        &#9993 Wiadomości
+                                    </li>
+                                </a>
+                                <a href="/notifications">
+                                    <li class="pl-10 py-3 my-1 bg-white transition transform hover:scale-105">
+                                        &#x1F4E2 Powiadomienia
+                                    </li> 
+                                </a>
+                                <a href="">
+                                    <li class="pl-10 py-3 my-1 bg-white transition transform hover:scale-105">
+                                        &#9881 Ustawienia
+                                    </li>
+                                </a>
+                                <a href="/logout">
+                                    <li class="pl-10 py-3 my-1 bg-white transition transform hover:scale-105">
+                                        &#128275 Wyloguj się
+                                    </li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>  
+                {% endif %}
             </div>
             {% block footer %}
                 <footer>

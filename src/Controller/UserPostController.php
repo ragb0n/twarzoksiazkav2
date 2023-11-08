@@ -32,6 +32,7 @@ class UserPostController extends AbstractController
         $userId = $user->getId();
 
         $friendsIds = $this->friendshipRepository->findAllUserFriends($userId);
+        array_push($friendsIds, $userId);
         $posts = $this->userPostRepository->getFeedPosts($friendsIds);
 
         $post = new UserPost(); //utworzenie nowego posta
@@ -42,17 +43,16 @@ class UserPostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //TODO: dodanie klucza obcego userId użytkownika, któy jest zalogowany
             $newPost = $form->getData();
+            $post->setUserId($user);
             $this->em->persist($newPost); //deklarowanie Doctrine, że "potencjalnie" możliwe jest, że zostanie dokonany nowy wpis do bazy
             $this->em->flush(); //wykonaj zapytanie z dodaniem wpisu do bazy (INSERT)
             // Redirect to prevent form resubmission on page refresh
             return $this->redirectToRoute('feed');
         }
-
+        
         return $this->render('feed/index.html.twig', [
             'posts' => $posts,
             'form' => $form->createView()
         ]);
     }
-
-    #
 }

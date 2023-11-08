@@ -23,7 +23,6 @@ class UserPostRepository extends ServiceEntityRepository
 
     public function getFeedPosts(array $userIds){
 
-
         $qb = $this->createQueryBuilder('p')
             ->select('p', 'u')
             ->leftJoin('p.userId', 'u')
@@ -32,7 +31,7 @@ class UserPostRepository extends ServiceEntityRepository
             ->orderBy('p.createdAt', 'DESC');
 
         $query = $qb->getQuery();
-
+        //dd($query->execute());
         return $query->execute();
     }
 //    /**
