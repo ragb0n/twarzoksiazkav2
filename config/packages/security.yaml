@@ -41,6 +41,8 @@ security:
         - { path: ^/user, roles: ROLE_USER }
         - { path: ^/users, roles: ROLE_USER }
         - { path: ^/feed, roles: ROLE_USER }
+        - { path: ^/post/\d+/react, roles: IS_AUTHENTICATED_FULLY }
+
 
 when@test:
     security:

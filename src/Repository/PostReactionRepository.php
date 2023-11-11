@@ -20,6 +20,26 @@ class PostReactionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PostReaction::class);
     }
+    
+    public function getReactionCounts($postId)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->select('r.type, COUNT(r.id) as count')
+            ->leftJoin('r.postId', 'p')
+            ->where('p.id = :postId')
+            ->groupBy('r.type')
+            ->setParameter('postId', $postId);
+
+        $result = $qb->getQuery()->getResult();
+
+        $reactionCounts = [];
+        foreach ($result as $row) {
+            $reactionCounts[$row['type']] = $row['count'];
+        }
+
+        return $reactionCounts;
+    }
+    
 
 //    /**
 //     * @return PostReaction[] Returns an array of PostReaction objects

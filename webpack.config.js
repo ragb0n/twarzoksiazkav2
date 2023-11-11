@@ -21,6 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('reactions', './assets/javascript/reactions.js')
     //.addEntry('method2', './assets/javascript/method2.js') //druga metoda dodawania JS, poprzez dodanie nowego pliku JS do kompilacji przez webpack
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

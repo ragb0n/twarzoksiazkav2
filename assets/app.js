@@ -9,4 +9,4 @@
 import './styles/app.css';
 
 //Compile new JS file
-import './javascript/method1.js' //metoda 1 dodawania JS, poprzez podczepienie go pod istniejący skrypt app.js
+//import './javascript/reactions.js' //metoda 1 dodawania JS, poprzez podczepienie go pod istniejący skrypt app.js

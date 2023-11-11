@@ -3,13 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %} 
             {# szuka skryptow javascript w folderze public/build, po nazwie pliku #}
-            {{ encore_entry_script_tags('app') }} 
+            {{ encore_entry_script_tags('reactions') }} 
         {% endblock %}
     </head>
 
@@ -18,7 +19,7 @@
                 <header>
                     <nav class="bg-blue-700 flex items-center justify-between flex-wrap p-6 fixed w-full z-10 top-0">
                         <div class="flex items-center flex-shrink-0 text-white mr-6">
-                            <a class="text-white no-underline hover:text-white hover:no-underline" href="/">
+                            <a class="text-white no-underline hover:text-white hover:no-underline" href="{{ app.user ? '/feed' : '/'}}">
                                 <span class="bg-blue-700 text-2xl pl-2 font-extrabold italic">
                                     twarzoksiążka V2 </br>
                                 </span>
