@@ -12,7 +12,9 @@ $(document).ready(function () {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'X-Requested-With': 'XMLHttpRequest',
             }, //jakie dane mają zostać przekazane w żądaniu
-            data: { type: reactionType },
+            data: { 
+                type: reactionType 
+            },
             success: function (data) {
                 // w przypadku sukcesu - wykonaj updateReactionUI
                 updateReactionUI(postId, data.reactions);

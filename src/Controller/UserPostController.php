@@ -70,45 +70,4 @@ class UserPostController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
-    #[Route('/post/{postId}/react', name: 'user_post_react', methods:['POST'])]
-    public function react(Request $request, $postId)
-    {
-        $user = $this->getUser(); //aktualnie zalogowany user
-        $reactionType = $request->request->get('type'); //z żądania AJAX pobiera info, jakiego typu reakcja została dodana
-        $post = $this->userPostRepository->find($postId); //post dla ktorego dodano reakcję
-
-        if(!$post || !$user){  //jeżeli nie ustawiono aktualnie zalogowanego usera (niezalogowany) lub postu dla któego dodano reakcję - wywal błąd
-            return new JsonResponse(['error' => 'Invalid post or user.'], 400);
-        }
-
-        //znajduje reakcję wystawioną już do danego posta przez danego użytkownika i przypisuje ją do zmiennej
-        $existingReaction = $this->postReactionRepository->findOneBy([
-            'postId' => $post,
-            'userId' => $user,
-        ]); 
-
-        if($existingReaction && $existingReaction->getType() == $reactionType){ //jeżeli znaleziono już istniejąca reakcję oraz jest one tego samego typu, co w żądaniu - usuń reakcję
-            $this->em->remove($existingReaction);
-        }else{
-            if(!$existingReaction){ //jeżeli nie ma żadnej reakcji do postu - utwórz nową
-                $newReaction = new PostReaction();
-                $newReaction->setUserId($user);
-                $newReaction->setPostId($post);
-                $newReaction->setType($reactionType);
-                $this->em->persist($newReaction);
-            }else{
-                $existingReaction->setType($reactionType); //jeżeli jest już jakas reakcja ale innego typu - zmień typ reakcji
-            }
-        }
-
-        $this->em->flush(); //wykonaj mziany w bazie
-
-        $reactionCounts = $this->postReactionRepository->getReactionCounts($postId); //pobierz ilość reakcji każdego typu do postu
-        return new JsonResponse(['reactions' => $reactionCounts]);
-    }
-
-
-
-    
 }
