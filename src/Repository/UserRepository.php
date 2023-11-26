@@ -28,10 +28,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findBySearchKeyword($searchKeyword)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.firstName LIKE :keyword OR u.lastName LIKE :keyword')
-            ->setParameter('keyword', '%' . $searchKeyword . '%')
-            ->getQuery()
-            ->getResult();
+        ->leftJoin('App\Entity\Friendship', 'f', 'WITH', 'f.targetUserId = u.id OR f.sourceUserId = u.id')
+        ->select('u', 'f.status AS friendshipStatus')
+        ->where('u.firstName LIKE :keyword OR u.lastName LIKE :keyword')
+        ->setParameter('keyword', '%' . $searchKeyword . '%')
+        ->getQuery()
+        ->getResult();
+        // return $this->createQueryBuilder('u')
+        //     ->where('u.firstName LIKE :keyword OR u.lastName LIKE :keyword')
+        //     ->setParameter('keyword', '%' . $searchKeyword . '%')
+        //     ->getQuery()
+        //     ->getResult();
     }
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
