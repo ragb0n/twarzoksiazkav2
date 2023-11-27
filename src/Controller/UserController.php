@@ -44,11 +44,14 @@ class UserController extends AbstractController
         $form = $this->createForm(UserSearchType::class); //tworzymy formularz zgodnie z tym, co zdefiniowano w UserSearchType
         $form->handleRequest($request); //przetwarzanie danych, żądania HTTP po wysłania formularza
 
+        $user = $this->getUser();
+        $userId = $user->getId();
+
         $users = []; //pusta arrayka do przechowywania wyników wyszukiwania
 
         if ($form->isSubmitted() && $form->isValid()) {
             $searchKeyword = $form->get('searchKeyword')->getData(); //do zmiennej przypisuje to, co znalazło się w polu 'searchKeyword' formularza
-            $users = $this->userRepository->findBySearchKeyword($searchKeyword); //do zmiennej przypisuje wyniki wyszukiwania, tj wynik działania funkcji findBySearchKeyword dla wartości z formularza
+            $users = $this->userRepository->findBySearchKeyword($searchKeyword, $userId); //do zmiennej przypisuje wyniki wyszukiwania, tj wynik działania funkcji findBySearchKeyword dla wartości z formularza
         }
 
         return $this->render('user/search.html.twig', [

@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('reactions', './assets/javascript/reactions.js')
+    .addEntry('friendshipButton', './assets/javascript/friendshipButton.js')
     //.addEntry('method2', './assets/javascript/method2.js') //druga metoda dodawania JS, poprzez dodanie nowego pliku JS do kompilacji przez webpack
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

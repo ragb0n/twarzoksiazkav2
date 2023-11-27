@@ -28,6 +28,11 @@ class Friendship
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createDate = null;
 
+    public function __construct()
+    {
+        $this->createDate = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
