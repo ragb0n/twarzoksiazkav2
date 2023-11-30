@@ -35,10 +35,10 @@
             <div id="no-friends-button" class="friendship-buttons-container w-full">
                 <div class=" w-1/2 m-auto mt-4 rounded-md">
                     <div class="w-full">
-                        <button title="Wyślij zaproszenie do znajomych" data-user-id="{{ user.0.id }}" id="add-friend-button" class="friendship-button w-full bg-gray-200 text-center py-2 hover:brightness-50">
+                        <button title="Wyślij zaproszenie do znajomych" data-user-id="{{ user.0.id }}" id="add-friend-button-{{ user.0.id }}" class="friendship-button w-full bg-gray-200 text-center py-2 hover:brightness-50">
                             &#128100;&#10133;
                         </button>
-                        <div id="invitation-sent" class="friendship-button-message bg-gray-200 text-center py-2 hover:brightness-50 hidden">
+                        <div id="invitation-sent-message-{{ user.0.id }}" class="friendship-button-message bg-green-200 font-bold text-center py-2 hidden">
                             Zaproszenie wysłane!
                         </div>
                     </div>
@@ -49,16 +49,17 @@
             {# Osoba w znajonmych, można usunąć ze znajomych  #}
             {% if user.friendshipStatus == 1 %}
              <div id="are-friends-button" class="friendship-buttons-container w-full">
-                <div class=" w-1/2 m-auto mt-4 flex rounded-md">
-                    <div class="w-1/2">
-                        <div title="Jesteście znajomymi" class="bg-gray-200 w-full text-center py-2">
+                <div class=" w-1/2 m-auto mt-4 rounded-md">
+                    <div class="w-full flex friendship-buttons-{{ user.0.id }}">
+                        <div title="Jesteście znajomymi" class="w-1/2 bg-gray-200  text-center py-2">
                             &#128101;&#9989;
                         </div>
-                    </div>
-                    <div href="" class="w-1/2" >
-                        <button title="Usuń znajomego" data-friendship-id = "{{user.friendshipId}}" id="remove-friend-button" class="friendship-button bg-red-200 w-full text-center py-2 hover:brightness-50">
+                        <button title="Usuń znajomego" data-friendship-id = "{{user.friendshipId}}" data-user-id="{{ user.0.id }}" id="remove-friend-button" class="friendship-button bg-red-200 w-1/2 text-center py-2 hover:brightness-50" >
                             &#128101;&#10060;
                         </button>
+                    </div>
+                    <div id="friend-deleted-message-{{ user.0.id }}" class="friendship-button-message bg-green-200 font-bold text-center py-2 w-full hidden">
+                        Nie jesteście już znajomymi!
                     </div>
                 </div>
             </div>

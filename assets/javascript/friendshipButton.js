@@ -1,7 +1,8 @@
 $(document).ready(function () {
-    $('#remove-friend-button.friendship-button').on('click', function () {
-        const friendshipId = $(this).data('friendshipId');
-        
+    $('[id="remove-friend-button"].friendship-button').on('click', function () {
+        var friendshipId = $(this).data('friendshipId');
+        var userId = $(this).data('userId');
+
         $.ajax({
             url: '/friendship/${friendshipId}/remove',
             type: 'POST',
@@ -12,7 +13,7 @@ $(document).ready(function () {
                 friendship: friendshipId
             },
             success: function (data) {
-                //refreshButtonUI(1);
+                refreshButtonUI(0, userId);
                 console.log(data.response);
             },
             error: function (error) {
@@ -21,9 +22,10 @@ $(document).ready(function () {
         })
     })
 
-    $('#add-friend-button.friendship-button').on('click', function () {
-        const targetUserId = $(this).data('userId');
-        
+    $('[id^="add-friend-button"].friendship-button').on('click', function () {
+        var targetUserId = $(this).data('userId');
+        var userId = $(this).data('userId');
+ 
         $.ajax({
             url: '/friendship/${friendshipId}/add',
             type: 'POST',
@@ -34,7 +36,7 @@ $(document).ready(function () {
                 target: targetUserId
             },
             success: function () {
-                refreshButtonUI(1);
+                refreshButtonUI(1, userId);
             },
             error: function (error) {
                 console.error('Error:', error);
@@ -42,7 +44,7 @@ $(document).ready(function () {
         })
     })
 
-    function refreshButtonUI(currentStatus, button){
+    function refreshButtonUI(currentStatus, userId){
         // Znaczenie poszczególnych wartości currentStatus:
         // 0 - użytkownik usunięty ze znajomych
         // 1 - wysłano zaproszenie
@@ -51,10 +53,11 @@ $(document).ready(function () {
         // 4 - odrzucono zaproszenie
 
         if(currentStatus == 0){
-
+            $('#friend-deleted-message-'+userId).show();
+            $('.friendship-buttons-'+userId).hide();
         }else if(currentStatus == 1){
-            $('#invitation-sent.friendship-button-message').show();
-            button.hide();
+            $('#invitation-sent-message-'+userId+'.friendship-button-message').show();
+            $('#add-friend-button-'+userId+'.friendship-button').hide();
         }else if(currentStatus == 2){
             
         }else if(currentStatus == 3){
